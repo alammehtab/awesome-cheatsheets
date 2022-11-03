@@ -46,7 +46,7 @@ CTRL+X then (   # start recording a keyboard macro
 CTRL+X then )   # finish recording keyboard macro
 CTRL+X then E   # recall last recorded keyboard macro
 CTRL+X then CTRL+E   # invoke text editor (specified by $EDITOR) on current command line then execute resultes as shell commands
-CTRAL+A then D  # logout from screen but don't kill it, if any command exist, it will continue 
+CTRL+A then D  # logout from screen but don't kill it, if any command exist, it will continue 
 
 BACKSPACE  # deletes one character backward
 DELETE     # deletes one character under cursor
@@ -55,6 +55,7 @@ history   # shows command line history
 !!        # repeats the last command
 !<n>      # refers to command line 'n'
 !<string> # refers to command starting with 'string'
+esc :wq   # exits and saves script
 
 exit      # logs out of current session
 
@@ -88,8 +89,12 @@ readlink <filename>           # shows where a symbolic links points to
 tree                          # show directories and subdirectories in easilly readable file tree
 mc                            # terminal file explorer (alternative to ncdu)
 touch <filename>              # creates or updates (edit) your file
-mktemp -t <filename>            # make a temp file in /tmp/ which is deleted at next boot (-d to make directory)
-cat <filename>                # prints file raw content (will not be interpreted)
+mktemp -t <filename>          # make a temp file in /tmp/ which is deleted at next boot (-d to make directory)
+cat <filename>                # displays file raw content (will not be interpreted)
+cat -n <filename>             # shows number of lines
+nl <file.sh>                  # shows number of lines in file
+cat filename1 > filename2     # Copy filename1 to filename2
+cat filename1 >> filename2    # merge two files texts together 
 any_command > <filename>      # '>' is used to perform redirections, it will set any_command's stdout to file instead of "real stdout" (generally /dev/stdout)
 more <filename>               # shows the first part of a file (move with space and type q to quit)
 head <filename>               # outputs the first lines of file (default: 10 lines)
@@ -183,7 +188,7 @@ dig -x <host>            # reverses lookup host
 wget <file>              # downloads file
 netstat                  # Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
 
-time <command>             # report time consumed by command execution
+time <command>           # report time consumed by command execution
 
 
 ##############################################################################
@@ -202,6 +207,10 @@ read -p "prompt" <varname>   # same as above but outputs a prompt to ask user fo
 column -t <filename>         # display info in pretty columns (often used with pipe)
 let <varname> = <equation>   # performs mathematical calculation using operators like +, -, *, /, %
 export VARNAME=value         # defines an environment variable (will be available in subprocesses)
+export -f  <funcname>        # Exports function 'funcname'
+export var1="var1 value"     # Export and assign in the same statement
+export <varname>             # Copy Bash variable 
+declare -x <varname>         # Copy Bash variable 
 
 array[0]=valA                # how to define an array
 array[1]=valB
@@ -219,6 +228,8 @@ declare -F                   # displays function names without definitions
 declare -i                   # the variables are treated as integers
 declare -r                   # makes the variables read-only
 declare -x                   # marks the variables for export via the environment
+declare -l                   # uppercase values in the variable are converted to lowercase
+declare -A                   # makes it an associative array
 
 ${varname:-word}             # if varname exists and isn't null, return its value; otherwise return word
 ${varname:word}              # if varname exists and isn't null, return its value; otherwise return word
@@ -244,6 +255,7 @@ ${#varname}                  # returns the length of the value of the variable a
 
 $(UNIX command)              # command substitution: runs the command and returns standard output
 
+typeset -l <x>                 # makes variable local - <x> must be an interger
 
 ##############################################################################
 # FUNCTIONS
